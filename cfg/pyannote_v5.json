@@ -1,0 +1,25 @@
+{
+    "model": {
+        "name": "Pyannote",
+        "sincnet_filters": [80,60,64],
+        "sequence_type": "attention",
+        "sequence_nlayers": 8,
+        "sequence_neuron": 64,
+        "sequence_drop_out": 0.1,
+        "sequence_bidirectional": null,
+        "linear_blocks": [128,128,1]
+    },
+    "data": {
+        "num_workers": 20,
+        "pin_memory": false,
+        "target_rate": 16000,
+        "data_base_path": "datasets",
+        "post_proc": false
+    },
+    "train": {
+        "batch_size": 256,
+        "epoch": 20,
+        "step_show": 2500,
+        "loss_fn": "BCE"
+    }
+}

@@ -1,92 +1,149 @@
-# voice-activity-detection-main
+# Electronics Research Institute Sharif University of Technology
+
+## Voice Activity Detection Project
+
+## Table of Contents
+- [Dataset](#Dataset)
+- [Pyannote-v2](#Pyannote-v2)
+- [Pyannote-v4](#Pyannote-v4)
+- [Results](#Results)
+
+**Note: For running each model, it is necessary to install packages in requirements.txt file. You can find this file inside each folder.**
+
+# Dataset
+
+This [**folder**](./datasets) contains the project dataset for Voice Activity Detection.
+<div align="justify"> In this project, 2400 hours of data have been collected from different languages ​​(English, German, French, Welsh, Turkish, and 13 other languages) of which 1900 hours have been approved (confirmed). To create the noise data, the QUT database and the noise data delivered from the employer were used as the pure noise database. The QUT database contains 5 different types of noise (home, cafe, street, etc.). 
+To create VAD data at first, a part of the Common Voice database was separated as follows(bellow):
 
 
+ 
+- Separating (isolating) the validated section from the invalidated section.
+- Separating the part that does not have a negative vote from the evaluation candidates and has at least one positive vote.
+- Separating the part that is recognized by the internal model of the technical team for speech diagnosis completely.
 
-## Getting started
+After selecting the speech parts according to the above three criteria, we use the internal model of the technical team to segment the speech file. This model creates one character per frame of 20 milliseconds of input sound, and therefore we can assign speech and non-speech labels to each frame. The data created by the above procedure constitutes the noise-free part of the DS-Fa-V01 database. If needed to conjunction between production speech labels, the disjunction (discontinuity) of less than 200 milliseconds in the speech tag can be removed using post-processing.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+As a result, the noise-free part is gained from the DS-Fa-V02 database. To create noise samples in both databases, the real QUT noise data and noise data created by the respected employer were used. For this reason, the noise-free part of two databases DS-Fa-V01 and DS-Fa-V02 with different SNRs from **-2**to **30**  dB with **2** steps with QUT data and from 0 to 30 dB with 10 steps with The employer-created noise was mixed. For each level (SNR), the entire VAD database was combined with the noise that was chosen randomly during mixing. Our database containing about 3.5 million labeled data was prepared, which were named DS-Fa-V01 and DS-Fa-V02. For segmenting the database into evaluation and test data, at first, 160 thousand pure data of each part that contains 10% of the total files, were separated and prepared with the corresponding noise data of evaluation and test data. The other data, which make up 80% of the total, were classified as education data. Therefore, there is no leakage of the audio files of the training set in the evaluation and test parts.
 
-## Add your files
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+## Data collection procedure
 
+In this project,the CommonVoice Persian version 13 database has been used to build a proper VAD database in Persian language.
+CommonVoice is an open source project started by Mozilla to collect speech data, where people can speak sentences.
+
+```bibtex
+@article{nezami2019shemo,
+  title={ShEMO: a large-scale validated database for Persian speech emotion detection},
+  author={Nezami, Omid Mohamad and Lou, Paria Jamshid and Karami, Mansoureh},
+  journal={Language Resources and Evaluation},
+  volume={53},
+  number={1},
+  pages={1--16},
+  year={2019},
+  publisher={Springer}
+}
 ```
-cd existing_repo
-git remote add origin http://192.168.243.15/vad.ghaemmaghami/voice-activity-detection-main.git
-git branch -M main
-git push -uf origin main
-```
 
-## Integrate with your tools
+# Pyannote-v2
 
-- [ ] [Set up project integrations](http://192.168.243.15/vad.ghaemmaghami/voice-activity-detection-main/-/settings/integrations)
+In this version, compared to the original model, uses two bidirectional GRU layers with 64 hidden units in its recurrent layer in order to simultaneously use the depth in its structure and reduce the number of parameters. The number of parameters of this model is about 199 thousand.
 
-## Collaborate with your team
+<p align="center"><img width=600 src="./images/Pyannote-v2.JPG" alt="Pyannote-v2."/></p>
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
 
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
 ## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Train, Evaluate, Test and Deploy Model
+1. Run the following code with the desired settings to train the model:
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+```bash                  
+python train.py -cfg cfg/pyannote_v2.json
+                -s models/Pyannote-v2.pth
+```
+	
+2. Run the following code with the desired settings to evaluate the model:
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+```bash
+python evaluate.py -cfg cfg/pyannote_v2.json
+                   -s models/Pyannote-v2.pth
+```
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+3. Run the following code with the desired settings to inference the model:
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+```bash
+python inference.py -cfg cfg/pyannote_v2.json
+                    -s models/Pyannote-v2.pth
+                    -i datasets/sample.wav
+```
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+4. Run the following code with the desired settings to export the model to onnx:
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+```bash
+python export_onnx.py -cfg cfg/pyannote_v2.json
+                      -i models/Pyannote-v2.pth 
+                      -o models/Pyannote-v2.onnx
+```
 
-## License
-For open source projects, say how it is licensed.
+5. Run the following code with the desired settings to inference the onnx model:
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+```bash
+python inference_onnx.py -s models/Pyannote-v2.onnx
+                         -i datasets/sample.wav
+```
+
+# Pyannote-v4
+
+In this version, compared to the original model, the process of reducing the complexity continued by maintaining the depth in the recurrent layers, and the number of hidden units in the bidirectional GRU was considered equal to 16.
+
+<p align="center"><img width=600 src="./images/Pyannote-v4.JPG" alt="Pyannote-v4."/></p>
+
+## Usage
+### Train, Evaluate, Test and Deploy Model
+1. Run the following code with the desired settings to train the model:
+
+```bash                  
+python train.py -cfg cfg/pyannote_v4.json
+                -s models/Pyannote-v4.pth
+```
+	
+2. Run the following code with the desired settings to evaluate the model:
+
+```bash
+python evaluate.py -cfg cfg/pyannote_v4.json
+                   -s models/Pyannote-v4.pth
+```
+
+3. Run the following code with the desired settings to inference the model:
+
+```bash
+python inference.py -cfg cfg/pyannote_v4.json
+                    -s models/Pyannote-v4.pth
+                    -i datasets/sample.wav
+```
+
+4. Run the following code with the desired settings to export the model to onnx:
+
+```bash
+python export_onnx.py -cfg cfg/pyannote_v4.json
+                      -i models/Pyannote-v4.pth 
+                      -o models/Pyannote-v4.onnx
+```
+
+5. Run the following code with the desired settings to inference the onnx model:
+
+```bash
+python inference_onnx.py -s models/Pyannote-v4.onnx
+                         -i datasets/sample.wav
+```
+
+# Results
+
+In this part the evaluation results of proposed VAD models on DS-Fa-v01 evaluation data is shown. please note that the results are for CPU execution time for batch of 50 and audio with duration of 2, 5 and 10 seconds.
+
+<p align="center"><img width=600 src="./images/Result.png" alt="Result."/></p>
+
+
+
+
