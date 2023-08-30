@@ -4,8 +4,8 @@ import argparse
 import torch
 import torch.onnx
 
-from base.utils import load_model_config
-from base.models import PyanNet
+from models.utils import load_model_config
+from models.models import PyanNet
 
 
 # construct the argument parser and parse the arguments

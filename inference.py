@@ -7,8 +7,8 @@ import torch
 import torchaudio
 from torchaudio.transforms import Resample
 
-from base.models import PyanNet
-from base.utils import load_model_config
+from models.models import PyanNet
+from models.utils import load_model_config
 
 
 

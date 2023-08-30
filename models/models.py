@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from base.layers import SincNet
+from models.layers import SincNet
 
 
 

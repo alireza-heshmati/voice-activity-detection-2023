@@ -5,7 +5,7 @@ import torchaudio
 from torchaudio.transforms import Resample
 from torch.nn.utils.rnn import pad_sequence
 
-from data.postprocessing import remove_short_space
+from dataio.postprocessing import remove_short_space
 
 
 

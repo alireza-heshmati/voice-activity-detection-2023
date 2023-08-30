@@ -2,7 +2,6 @@ import os
 import argparse
 import timeit
 from functools import partial
-from tqdm import tqdm
 
 import numpy as np
 import pandas as pd
@@ -10,12 +9,12 @@ import pandas as pd
 import torch
 from torch.utils.data import DataLoader
 
-from metrics import F1_Score, MCC
+from tools.train_utils import evaluate_epoch
 
-from base.models import PyanNet
-from base.utils import load_model_config, pyannote_target_fn
-from data.dataset import CustomAudioDataset
-from data.utils import collate_fn
+from models.models import PyanNet
+from models.utils import load_model_config, pyannote_target_fn
+from dataio.dataloader import CustomAudioDataset
+from dataio.utils import collate_fn
 
 
 
@@ -48,45 +47,6 @@ torch.cuda.manual_seed(1)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Device : {device}")
 print(f"Device name : {torch.cuda.get_device_name(0)}")
-
-
-
-# Evaluate model with loss, F1-Score and MCC
-def evaluate_epoch(model, data_loader, loss_fn, target_fn, device):
-    model.eval()
-
-    loss = 0
-    TP = 0 # pred 1, actual 1
-    FP = 0 # pred 1, actual 0
-    TN = 0 # pred 0, actual 0
-    FN = 0 # pred 0, actual 1
-    counter = 0
-
-    with torch.no_grad():  
-        for data, target in tqdm(data_loader):
-            target = target_fn(target)
-            
-            output = model(data.to(device)).cpu()
-            loss += loss_fn(output, target)
-
-            ind_pred = output > 0.5
-            ind_target = target > 0.5
-            
-            # Calculate TP, FP, FN, TN
-            TP += len(target[ind_pred * ind_target])
-            FP += len(target[ind_pred * ~ind_target])
-            FN += len(target[~ind_pred * ind_target])
-            TN += len(target[~ind_pred * ~ind_target])
-
-            del data, target,  ind_pred, ind_target
-            counter += 1
-
-    f1 = F1_Score(TP, FP, TN, FN)
-    mcc = MCC(TP, FP, TN, FN)
-    loss = loss.cpu().item() / counter
-
-    return round(loss, 5), round(f1, 3), round(mcc, 3)
-
 
 
 

@@ -3,7 +3,7 @@ import os
 import torch
 from torch.utils.data import Dataset, DataLoader
 
-from data.utils import read_audio_label, collate_fn
+from dataio.utils import read_audio_label, collate_fn
 
 
 
