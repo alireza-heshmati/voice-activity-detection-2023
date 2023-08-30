@@ -1,3 +1,5 @@
+
+
 import os
 
 import torch
@@ -6,9 +8,31 @@ from torch.utils.data import Dataset, DataLoader
 from dataio.utils import read_audio_label, collate_fn
 
 
-
-# prepare dataset for train, validation, test
 class CustomAudioDataset(Dataset):
+    """Tis class read data and a label.
+
+    Arguments
+    ---------
+    speech_filenames : str
+        List of names of train, validation and test audio files.
+    label_path : str
+        Path of label file for example os.path.join(data_base_path,"VadLabel").
+    data_base_path : str
+        Path of dataset file for example dataio/dataset.
+    post_proc : bool
+        Change the labels of short non-speech between two speech, for example 200 ms gap between two speech.
+    target_rate : int
+        Sampling rate of audio.
+
+    Returns
+    -------
+    data
+        Readed audio output as torch
+
+    label
+        The label relative to data.
+
+    """
     def __init__(self,
                  speech_filenames,
                  label_path,
@@ -46,6 +70,44 @@ def data_loader(train_path,
                 num_workers, 
                 pin_memory, 
                 post_proc = False):
+    
+    """Tis class prepare dataset for train, validation, test.
+
+    Arguments
+    ---------
+    train_path : str
+        List of names of train audio files.
+    validation_path : str
+        List of names of validation audio files.
+    test_path : str
+        List of names of test audio files.
+    label_path : str
+        Path of label file for example os.path.join(data_base_path,"VadLabel").
+    data_base_path : str
+        Path of dataset file for example dataio/dataset.
+    target_rate : int
+        Sampling rate of audio.
+    batch_size : int
+        Size of batch size for training and evaluating.
+    num_workers : int
+        Number of cpu used.
+    pin_memory : bool
+        This is good for using GPU to collect data.
+    post_proc : bool
+        Change the labels of short non-speech between two speech, for example 200 ms gap between two speech.
+
+    Returns
+    -------
+    train_loader
+        loader of train set
+
+    validation_loader
+        loader of validat set
+
+    test_loader
+        loader of test set
+
+    """
 
     # for reading and preparing train dataset
     train_loader = DataLoader(

@@ -49,6 +49,7 @@ model.load_state_dict(torch.load(saved_model_path),strict=True)
 model.eval()
 dummy_input = torch.randn(2, 25000, requires_grad=True).to(device)
 
+# export onnx model
 torch.onnx.export(model,                                               # model being run
                   dummy_input ,                                        # model input (or a tuple for multiple inputs)
                   export_model_path,                                   # where to save the model

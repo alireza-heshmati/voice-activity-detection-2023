@@ -6,8 +6,20 @@ from asteroid_filterbanks.param_sinc_fb import ParamSincFB
 
 
 
-# Filtering and convolutional part of Pyannote
 class SincNet(nn.Module):
+    """Filtering and convolutional part of Pyannote
+
+    Arguments
+    ---------
+    n_filters : list
+        List consist of number of each convolution kernel
+
+    Returns
+    -------
+    Sincnet model
+
+    """
+    
     def __init__(self, 
                  n_filters = [80,60,60],
                  ):

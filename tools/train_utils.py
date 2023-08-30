@@ -6,19 +6,95 @@ from tqdm import tqdm
 
 import torch
 
-# calcuale F1-Score criteria
+
 def F1_Score(TP, FP, TN, FN):
+    """calcuale F1-Score criteria
+
+    Arguments
+    ---------
+    TP : int
+        True positive for calculating F1-Score criteria
+        
+    FP : int
+        False positive for calculating F1-Score criteria
+
+    TN : int
+        True negative for calculating F1-Score criteria
+
+    FN : int
+        False positive for calculating F1-Score criteria
+
+    Returns
+    -------
+    output : float
+        F1_Score
+
+    """
     Precision = TP / (TP + FP)
     Recall = TP / (TP + FN)
     return 2 * Precision * Recall / (Precision + Recall + 1e-10)
 
 # calcuale MCC criteria
 def MCC(TP, FP, TN, FN):
+    """calcuale F1-Score criteria
+
+    Arguments
+    ---------
+    TP : int
+        True positive for calculating MCC criteria
+        
+    FP : int
+        False positive for calculating MCC criteria
+
+    TN : int
+        True negative for calculating MCC criteria
+
+    FN : int
+        False positive for calculating MCC criteria
+
+    Returns
+    -------
+    output : float
+        MCC
+    """
     return (TP * TN - FP * FN) / math.sqrt((TP + FP) * (TP + FN) * (TN + FP) * (TN + FN) + 1e-10)
 
 
-# Evaluate model with loss, F1-Score and MCC
+
 def evaluate_epoch(model, data_loader, loss_fn, target_fn, device):
+    """Evaluate model with loss, F1-Score and MCC
+
+    Arguments
+    ---------
+    model : class
+        Model for validating
+        
+    data_loader : class
+        Test or validation data loader
+
+    loss_fn : function
+        Loss function
+        
+
+    target_fn : function
+        Create framed label according to Pyannote
+
+    device : str
+        CPU or GPU
+
+
+    Returns
+    -------
+    loss : float
+        Loss
+        
+    f1 : float
+        F1_score
+        
+    mcc : float
+        MCC
+    """
+    
     model.eval()
 
     loss = 0
@@ -55,8 +131,39 @@ def evaluate_epoch(model, data_loader, loss_fn, target_fn, device):
 
 
 
-# train each epoch
 def train_epoch(model, dataloader, optimizer, loss_fn, target_fn, device, step_show):
+    """train each epoch
+
+    Arguments
+    ---------
+    model : class
+        Model for training
+        
+    data_loader : class
+        Training data loader
+
+    optimizer : function
+        Training optimizer
+        
+    loss_fn : function
+        Loss function
+
+    target_fn : function
+        Create framed label according to Pyannote
+
+    device : str
+        CPU or GPU
+
+    step_show : int
+        Number of batches to reduce learning rate and show training results
+
+
+    Returns
+    -------
+    total_loss : float
+        Train loss for the epoch
+    """
+    
     model.train()
     
     total_loss = 0
@@ -129,6 +236,67 @@ def run(model,
         step_show,
         n_epoch,
         ):
+    """train each epoch
+
+    Arguments
+    ---------
+    model : class
+        Model for training
+        
+    train_loader : class
+        Training data loader
+        
+    validation_loader : class
+        Validation data loader
+        
+    test_loader : class
+        Test data loader
+
+    optimizer : function
+        Training optimizer
+        
+    loss_fn : function
+        Loss function
+
+    target_fn : function
+        Create framed label according to Pyannote
+
+    device : str
+        CPU or GPU
+        
+    save_model_path : str
+        Path for saving model parameters
+
+    step_show : int
+        Number of batches to reduce learning rate and show training results
+
+    n_epoch : str
+        Number of epoches
+
+    Returns
+    -------
+    train_losses : float
+        Train losses
+        
+    val_losses : float
+        Validation losses
+        
+    val_fscores : float
+        Validation f1_score
+        
+    val_mccs : float
+        Validation mcc
+        
+    test_loss : float
+        Test loss
+        
+    test_fscore : float
+        Test f1_score
+        
+    test_mcc : float
+        Test mcc
+        
+    """
     
     best_loss = 1e10
     train_losses = []

@@ -6,8 +6,19 @@ from models.layers import SincNet
 
 
 
-# Main Pyannote model
 class PyanNet(nn.Module):
+    """Pyannote model
+
+    Arguments
+    ---------
+    model_config : dict
+        consist of model parameters
+
+    Returns
+    -------
+    Pyannote model
+
+    """
     def __init__(self,
                  model_config,
                  ):

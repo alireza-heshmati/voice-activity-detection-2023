@@ -59,37 +59,37 @@ In this version, compared to the original model, uses two bidirectional GRU laye
 1. Run the following code with the desired settings to train the model:
 
 ```bash                  
-python train.py -cfg cfg/pyannote_v2.json
-                -s models/Pyannote-v2.pth
+python train.py -cfg recipes/pyannote_v2.json
+                -s checkpoints/Pyannote-v2.pth
 ```
 	
 2. Run the following code with the desired settings to evaluate the model:
 
 ```bash
-python evaluate.py -cfg cfg/pyannote_v2.json
-                   -s models/Pyannote-v2.pth
+python evaluate.py -cfg recipes/pyannote_v2.json
+                   -s checkpoints/Pyannote-v2.pth
 ```
 
 3. Run the following code with the desired settings to inference the model:
 
 ```bash
-python inference.py -cfg cfg/pyannote_v2.json
-                    -s models/Pyannote-v2.pth
+python inference.py -cfg recipes/pyannote_v2.json
+                    -s checkpoints/Pyannote-v2.pth
                     -i datasets/sample.wav
 ```
 
 4. Run the following code with the desired settings to export the model to onnx:
 
 ```bash
-python export_onnx.py -cfg cfg/pyannote_v2.json
-                      -i models/Pyannote-v2.pth 
-                      -o models/Pyannote-v2.onnx
+python export_onnx.py -cfg recipes/pyannote_v2.json
+                      -i checkpoints/Pyannote-v2.pth 
+                      -o checkpoints/Pyannote-v2.onnx
 ```
 
 5. Run the following code with the desired settings to inference the onnx model:
 
 ```bash
-python inference_onnx.py -s models/Pyannote-v2.onnx
+python inference_onnx.py -s checkpoints/Pyannote-v2.onnx
                          -i datasets/sample.wav
 ```
 
@@ -104,43 +104,43 @@ In this version, compared to the original model, the process of reducing the com
 1. Run the following code with the desired settings to train the model:
 
 ```bash                  
-python train.py -cfg cfg/pyannote_v4.json
-                -s models/Pyannote-v4.pth
+python train.py -cfg recipes/pyannote_v4.json
+                -s checkpoints/Pyannote-v4.pth
 ```
 	
 2. Run the following code with the desired settings to evaluate the model:
 
 ```bash
-python evaluate.py -cfg cfg/pyannote_v4.json
-                   -s models/Pyannote-v4.pth
+python evaluate.py -cfg recipes/pyannote_v4.json
+                   -s checkpoints/Pyannote-v4.pth
 ```
 
 3. Run the following code with the desired settings to inference the model:
 
 ```bash
-python inference.py -cfg cfg/pyannote_v4.json
-                    -s models/Pyannote-v4.pth
+python inference.py -cfg recipes/pyannote_v4.json
+                    -s checkpoints/Pyannote-v4.pth
                     -i datasets/sample.wav
 ```
 
 4. Run the following code with the desired settings to export the model to onnx:
 
 ```bash
-python export_onnx.py -cfg cfg/pyannote_v4.json
-                      -i models/Pyannote-v4.pth 
-                      -o models/Pyannote-v4.onnx
+python export_onnx.py -cfg recipes/pyannote_v4.json
+                      -i checkpoints/Pyannote-v4.pth 
+                      -o checkpoints/Pyannote-v4.onnx
 ```
 
 5. Run the following code with the desired settings to inference the onnx model:
 
 ```bash
-python inference_onnx.py -s models/Pyannote-v4.onnx
+python inference_onnx.py -s checkpoints/Pyannote-v4.onnx
                          -i datasets/sample.wav
 ```
 
 # Results
 
-In this part the evaluation results of proposed VAD models on DS-Fa-v01 evaluation data is shown. please note that the results are for CPU execution time for batch of 50 and audio with duration of 2, 5 and 10 seconds.
+In this part the evaluation results of proposed VAD checkpoints on DS-Fa-v01 evaluation data is shown. please note that the results are for CPU execution time for batch of 50 and audio with duration of 2, 5 and 10 seconds.
 
 <p align="center"><img width=600 src="./images/Result.png" alt="Result."/></p>
 
