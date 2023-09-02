@@ -15,7 +15,7 @@ from models.utils import load_model_config
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--wav_path",
+ap.add_argument("-w", "--wav_path",
                 required=True,
                 type=str,
                 help="path of audio file")
@@ -25,16 +25,16 @@ ap.add_argument("-cfg", "--model_config_path",
                 type=str,
                 help="config of model for training and inference")
 
-ap.add_argument("-s", "--save_model_path",
+ap.add_argument("-i", "--saved_model_path",
                 required=True,
                 type=str,
-                help="path for saved model")
+                help="path to saved model")
 
 args = vars(ap.parse_args())
 
 
 wav_path = args["wav_path"]
-save_model_path = args["save_model_path"]
+save_model_path = args["saved_model_path"]
 model_config_path = args["model_config_path"]
 
 

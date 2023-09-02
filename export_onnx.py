@@ -18,9 +18,9 @@ ap.add_argument("-cfg", "--model_config_path",
 ap.add_argument("-i", "--saved_model_path",
                 required=True,
                 type=str,
-                help="path for loading raw model")
+                help="path to saved model")
 
-ap.add_argument("-o", "--export_model_path",
+ap.add_argument("-o", "--exporting_model_path",
                 required=True,
                 type=str,
                 help="path for saving exported model")
@@ -29,7 +29,7 @@ args = vars(ap.parse_args())
 
 
 saved_model_path = args["saved_model_path"]
-export_model_path = args["export_model_path"]
+export_model_path = args["exporting_model_path"]
 model_config_path = args["model_config_path"]
 
 

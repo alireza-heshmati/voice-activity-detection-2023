@@ -22,9 +22,9 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-cfg", "--model_config_path",
                 required=True,
                 type=str,
-                help="config of model for training and inference")
+                help="config of model for training")
 
-ap.add_argument("-s", "--save_model_path",
+ap.add_argument("-o", "--saving_model_path",
                 required=True,
                 type=str,
                 help="path for saving model")
@@ -32,7 +32,7 @@ ap.add_argument("-s", "--save_model_path",
 args = vars(ap.parse_args())
 
 
-save_model_path = args["save_model_path"]
+save_model_path = args["saving_model_path"]
 model_config_path = args["model_config_path"]
     
 

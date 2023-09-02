@@ -26,15 +26,15 @@ ap.add_argument("-cfg", "--model_config_path",
                 type=str,
                 help="config of model for evaluation")
 
-ap.add_argument("-s", "--save_model_path",
+ap.add_argument("-i", "--saved_model_path",
                 required=True,
                 type=str,
-                help="path for saved model")
+                help="path to saved model")
 
 args = vars(ap.parse_args())
 
 
-save_model_path = args["save_model_path"]
+save_model_path = args["saved_model_path"]
 model_config_path = args["model_config_path"]
 
 

@@ -16,15 +16,15 @@ import onnxruntime as ort
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--wav_path",
+ap.add_argument("-w", "--wav_path",
                 required=True,
                 type=str,
                 help="path of audio file")
 
-ap.add_argument("-s", "--save_model_path",
+ap.add_argument("-i", "--saved_model_path",
                 required=True,
                 type=str,
-                help="path for saved onnx model")
+                help="path to saved onnx model")
 
 ap.add_argument("-t", "--target_rate",
                 default=16000,
@@ -35,7 +35,7 @@ args = vars(ap.parse_args())
 
 
 wav_path = args["wav_path"]
-save_model_path = args["save_model_path"]
+save_model_path = args["saved_model_path"]
 target_rate = args["target_rate"]
 
 
