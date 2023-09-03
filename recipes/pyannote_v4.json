@@ -1,0 +1,25 @@
+{
+    "model": {
+        "name": "Pyannote",
+        "sincnet_filters": [80,60,60],
+        "sequence_type": "gru",
+        "sequence_nlayers": 2,
+        "sequence_neuron": 16,
+        "sequence_drop_out": 0.1,
+        "sequence_bidirectional": true,
+        "linear_blocks": [128,128,1]
+    },
+    "data": {
+        "num_workers": 20,
+        "pin_memory": false,
+        "target_rate": 16000,
+        "data_base_path": "dataset",
+        "post_proc": false
+    },
+    "train": {
+        "batch_size": 256,
+        "epoch": 20,
+        "step_show": 2500,
+        "loss_fn": "BCE"
+    }
+}
