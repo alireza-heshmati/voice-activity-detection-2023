@@ -30,10 +30,10 @@ def read_audio_label(speech_path,
 
     Returns
     -------
-    raw_audio : torch.tensor
+    raw_audio : torch.float
         readed audio
 
-    post_label : torch.tensor
+    post_label : torch.float
         readed label
 
     """
@@ -83,10 +83,10 @@ def collate_fn(batch):
 
     Returns
     -------
-    tensors : torch.tensor
+    tensors : torch.float
         padded audios
 
-    targets : torch.tensor
+    targets : torch.float
         padded labels
 
     """

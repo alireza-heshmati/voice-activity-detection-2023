@@ -70,7 +70,7 @@ def wav_label_to_frame_label_pyannote(label, num_frame, frame_shift):
 
     Arguments
     ---------
-    label : torch.tensor
+    label : torch.float
         Sampled label
     num_frame : int
         number of frames in the audio
@@ -79,7 +79,7 @@ def wav_label_to_frame_label_pyannote(label, num_frame, frame_shift):
     
     Returns
     -------
-    label : torch.tensor
+    label : torch.float
         Framed label
 
     """
@@ -100,7 +100,7 @@ def pyannote_target_fn(target, model_configs):
 
     Arguments
     ---------
-    target : torch.tensor
+    target : torch.float
         Sampled label
 
     model_configs : dict
@@ -108,7 +108,7 @@ def pyannote_target_fn(target, model_configs):
     
     Returns
     -------
-    output : torch.tensor
+    output : torch.float
         framed label
 
     """
