@@ -11,12 +11,12 @@ class PyanNet(nn.Module):
 
     Arguments
     ---------
-    model_config : dict
+    model_config : dict, str
         consist of model parameters
 
     Returns
     -------
-    Pyannote model
+    Pyannote model: class
 
     """
     def __init__(self,

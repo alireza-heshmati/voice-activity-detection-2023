@@ -16,7 +16,7 @@ class SincNet(nn.Module):
 
     Returns
     -------
-    Sincnet model
+    Sincnet model: class
 
     """
     

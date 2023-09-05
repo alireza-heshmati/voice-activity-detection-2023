@@ -11,7 +11,7 @@ def load_model_config(config_path):
 
     Returns
     -------
-    configs : dict
+    configs : dict, str
         Loaded config
 
     """
@@ -46,9 +46,9 @@ def cal_frame_sample_pyannote(wav_length,
     
     Returns
     -------
-    n_frame : dict
+    n_frame : float
         The number of frames according to Pyannote model
-    sample_per_frame : dict
+    sample_per_frame : float
         The length of frames according to Pyannote model
 
     """
@@ -70,7 +70,7 @@ def wav_label_to_frame_label_pyannote(label, num_frame, frame_shift):
 
     Arguments
     ---------
-    label : torch.float
+    label : float (torch.float)
         Sampled label
     num_frame : int
         number of frames in the audio
@@ -79,7 +79,7 @@ def wav_label_to_frame_label_pyannote(label, num_frame, frame_shift):
     
     Returns
     -------
-    label : torch.float
+    label : float (torch.float)
         Framed label
 
     """
@@ -100,15 +100,15 @@ def pyannote_target_fn(target, model_configs):
 
     Arguments
     ---------
-    target : torch.float
+    target : float (torch.float)
         Sampled label
 
-    model_configs : dict
+    model_configs : dict, str
         For sincnet_filters
     
     Returns
     -------
-    output : torch.float
+    output : float (torch.float)
         framed label
 
     """

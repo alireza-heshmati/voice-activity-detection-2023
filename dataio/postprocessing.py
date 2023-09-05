@@ -9,15 +9,12 @@ def remove_short_space(label):
 
     Arguments
     ---------
-    label : numpy
+    label : float
         Label for postprocessing
 
     Returns
     -------
-    data
-        Readed audio output as torch
-
-    new_label : numpy
+    new_label : float
         New label after postprocessing.
 
     """

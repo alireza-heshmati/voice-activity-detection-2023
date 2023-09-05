@@ -26,10 +26,10 @@ class CustomAudioDataset(Dataset):
 
     Returns
     -------
-    data
+    data: float (torch.float)
         Readed audio output as torch
 
-    label
+    label: float (torch.float)
         The label relative to data.
 
     """
@@ -98,13 +98,13 @@ def data_loader(train_path,
 
     Returns
     -------
-    train_loader
+    train_loader: class
         loader of train set
 
-    validation_loader
+    validation_loader: class
         loader of validat set
 
-    test_loader
+    test_loader: class
         loader of test set
 
     """
