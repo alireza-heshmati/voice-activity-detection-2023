@@ -30,7 +30,10 @@ class CustomAudioDataset(Dataset):
         Readed audio output as torch
 
     label: float (torch.float)
-        The label relative to data.
+        The time label relative to data.
+
+    framed_label: float (torch.float)
+        The 20ms framed label relative to data
 
     """
     def __init__(self,
@@ -54,9 +57,9 @@ class CustomAudioDataset(Dataset):
         
         label_filename = os.path.basename(speech_filename)[:-4].split("SPLIT")[0] + ".txt"
         label_filename = os.path.join(self.label_path, label_filename)
-        data, label = read_audio_label(speech_filename, label_filename, post_proc=self.post_proc, target_rate=self.target_rate)
+        data, label, framed_label = read_audio_label(speech_filename, label_filename, post_proc=self.post_proc, target_rate=self.target_rate)
         
-        return data, label
+        return data, label, framed_label
         
 
 # for reading and preparing dataset

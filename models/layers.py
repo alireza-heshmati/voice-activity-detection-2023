@@ -22,6 +22,7 @@ class SincNet(nn.Module):
     
     def __init__(self, 
                  n_filters = [80,60,60],
+                 stride_ = 10,
                  ):
         super(SincNet,self).__init__()
         
@@ -29,7 +30,7 @@ class SincNet(nn.Module):
         sincnet_list = nn.ModuleList(
             [
                 nn.InstanceNorm1d(1, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False),
-                Encoder(ParamSincFB(n_filters=n_filters[0], kernel_size=251, stride=10)),
+                Encoder(ParamSincFB(n_filters=n_filters[0], kernel_size=251, stride=stride_)),
                 nn.MaxPool1d(kernel_size=3, stride=3, padding=0, dilation=1, ceil_mode=False),
                 nn.InstanceNorm1d(n_filters[0], eps=1e-05, momentum=0.1, affine=True, track_running_stats=False),
             ]

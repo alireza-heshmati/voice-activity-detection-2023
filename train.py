@@ -11,7 +11,7 @@ import torch
 from tools.train_utils import run
 
 from models.models import PyanNet
-from models.utils import load_model_config, pyannote_target_fn
+from models.utils import load_model_config, pyannote_target_fn, cal_frame_sample_pyannote
 from dataio.dataset import data_loader
 
 
@@ -55,6 +55,8 @@ model_configs = load_model_config(model_config_path)
 if model_configs["model"]["name"] == "Pyannote":
     model = PyanNet(model_configs["model"])
     target_fn = partial(pyannote_target_fn, model_configs=model_configs["model"])
+    frame_pyannote_fn = partial(cal_frame_sample_pyannote,
+                                 sinc_step= model_configs["sincnet_stride"], n_conv= model_configs["sincnet_stride"]-1)
 
 total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
 print(f"\nNumber of model's parameters : {total_params}")
@@ -81,7 +83,8 @@ else:
 
 label_path = os.path.join(data_base_path,"VadLabel")
 
-train_path = pd.read_csv(os.path.join(data_base_path,"train_filenames.csv"))['speech_path']
+# Train with DS-Fa-V01 dataset
+train_path = pd.read_csv(os.path.join(data_base_path,"train_filenames_v2.csv"))['speech_path']
 validation_path = pd.read_csv(os.path.join(data_base_path,"valid_filenames.csv"))['speech_path']
 test_path = pd.read_csv(os.path.join(data_base_path,"test_filenames.csv"))['speech_path']
 print(f"sample train : {len(train_path)}, sample valid: {len(validation_path)}, sample test: {len(test_path)}")
@@ -109,6 +112,7 @@ train_losses, val_losses, val_fscores, val_mccs, test_loss, test_fscore, test_mc
     optimizer,
     loss_fn,
     target_fn,
+    frame_pyannote_fn,
     device,
     save_model_path,
     step_show,

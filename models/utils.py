@@ -1,5 +1,5 @@
 import json
-
+import copy
 
 def load_model_config(config_path):
     """Load model config
@@ -79,6 +79,9 @@ def wav_label_to_frame_label_pyannote(label, num_frame, frame_shift):
     
     Returns
     -------
+    final_label : float (torch.float)
+        Decided framed label
+
     label : float (torch.float)
         Framed label
 
@@ -89,10 +92,11 @@ def wav_label_to_frame_label_pyannote(label, num_frame, frame_shift):
     label = label.reshape(label.shape[0], num_frame, frame_shift)
 
     label = label.float().mean(-1, True)
-    label[label > 0.5] = 1
-    label[label <= 0.5] = 0
+    final_label = copy.deepcopy(label)
+    final_label[final_label > 0.5] = 1
+    final_label[final_label <= 0.5] = 0
 
-    return label
+    return final_label, label
 
 # make label frames from label samples
 def pyannote_target_fn(target, model_configs):
@@ -113,6 +117,7 @@ def pyannote_target_fn(target, model_configs):
 
     """
     n_conv = len(model_configs["sincnet_filters"]) - 1
-
-    num_frame, len_frame = cal_frame_sample_pyannote(target.shape[-1], n_conv=n_conv)
-    return wav_label_to_frame_label_pyannote(target, num_frame, len_frame)
+    sincnet_stride = model_configs["sincnet_stride"]
+    num_frame, len_frame = cal_frame_sample_pyannote(target.shape[-1], sinc_step= sincnet_stride, n_conv=n_conv)
+    target,_ = wav_label_to_frame_label_pyannote(target, num_frame, len_frame)
+    return target

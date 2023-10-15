@@ -33,8 +33,11 @@ def read_audio_label(speech_path,
     raw_audio : float (torch.float)
         readed audio
 
-    post_label : float (torch.float)
+    time_label : float (torch.float)
         readed label
+
+    label : float (torch.float)
+        readed 20ms framed label
 
     """
     
@@ -50,27 +53,22 @@ def read_audio_label(speech_path,
     # fetch label
     with open(label_path, "r") as f:
         label = f.read().split(" ")
-    post_label = np.array([int(c) for c in label])
+    label = np.array([int(c) for c in label])
     
     # post processing for vad labels 
     if post_proc:
-        post_label = remove_short_space(post_label)
+        label = remove_short_space(label)
 
-    buffer = []
-    for c in post_label:
-        if c == 0:
-            buffer += [0] * frame_length # 320 : the Number of samples allocated for each frame 
-        else:
-            buffer += [1] * frame_length
-    post_label = np.array(buffer)
+    time_label = torch.repeat_interleave(torch.tensor(label), 320, dim = -1)
     
     # align length of label with the signal
-    if raw_audio.shape[-1] < len(post_label):
-        post_label = post_label[:len(raw_audio)]
+    if raw_audio.shape[-1] < len(time_label):
+        time_label = time_label[:len(raw_audio)]
     else:
-        raw_audio = raw_audio[:,:len(post_label)]
+        raw_audio = raw_audio[:,:len(time_label)]
         
-    return raw_audio, torch.tensor(post_label)
+    return raw_audio, torch.tensor(time_label), torch.tensor(label).float()
+        
 
 
 def collate_fn(batch):
@@ -89,14 +87,19 @@ def collate_fn(batch):
     targets : float (torch.float)
         padded labels
 
+    frmd_targets: float (torch.float)
+        padded framed label
+
     """
 
-    tensors, targets = [], []
-    for tensor, label in batch:
-        tensors.append(tensor.squeeze())
+    tensors, targets, frmd_targets = [], [], []
+    for log_mel, label, frmd_label in batch:
+        tensors.append(log_mel.squeeze())
         targets.append(label.squeeze())
+        frmd_targets.append(frmd_label.squeeze())
 
     tensors = pad_sequence(tensors, batch_first=True, padding_value=0.0)
     targets = pad_sequence(targets, batch_first=True, padding_value=0.0)
+    frmd_targets = pad_sequence(frmd_targets, batch_first=True, padding_value=0.0)
 
-    return tensors, targets
+    return tensors, targets, frmd_targets

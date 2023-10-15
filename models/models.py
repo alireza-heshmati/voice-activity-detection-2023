@@ -27,9 +27,10 @@ class PyanNet(nn.Module):
         self.model_config = model_config
 
         sincnet_filters = model_config["sincnet_filters"]
+        sincnet_stride = model_config["sincnet_stride"]
         linear_blocks = model_config["linear_blocks"]
 
-        self.sincnet = SincNet(n_filters=sincnet_filters)
+        self.sincnet = SincNet(n_filters=sincnet_filters, stride_ = sincnet_stride)
 
         if model_config["sequence_type"] == "lstm":
             self.sequence_blocks = nn.LSTM(sincnet_filters[-1],
