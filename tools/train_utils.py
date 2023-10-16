@@ -110,7 +110,7 @@ def evaluate_epoch(model, data_loader, loss_fn, target_fn, frame_pyannote_fn, de
 
     with torch.no_grad():  
         for data, _, frm_targ in tqdm(data_loader):
-            num_frame, len_frame = frame_pyannote_fn(data.shape[-1])
+            _, len_frame = frame_pyannote_fn(data.shape[-1])
             
             output = model(data.to(device)).cpu()
             del data

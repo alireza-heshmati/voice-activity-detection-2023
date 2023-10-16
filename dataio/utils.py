@@ -63,7 +63,7 @@ def read_audio_label(speech_path,
     
     # align length of label with the signal
     if raw_audio.shape[-1] < len(time_label):
-        time_label = time_label[:len(raw_audio)]
+        time_label = time_label[:raw_audio.shape[-1]]
     else:
         raw_audio = raw_audio[:,:len(time_label)]
         

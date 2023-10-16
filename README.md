@@ -1,4 +1,4 @@
-# Electronics Research Institute Sharif University of Technology
+# Electronics Research Institute, Sharif University of Technology
 
 ## Voice Activity Detection Project
 
@@ -6,6 +6,7 @@
 - [Dataset](#Dataset)
 - [Pyannote-v2](#Pyannote-v2)
 - [Pyannote-v4](#Pyannote-v4)
+- [Other versions of Pyannote](#other-versions-of-pyannote)
 - [Quick-Installation-Usage](#Quick-Installation-Usage)
 - [Results](#Results) 
 
@@ -185,12 +186,12 @@ python inference_onnx.py -i checkpoints/Pyannote-v2.onnx
 ```
 
 # Results
-## phase 1:
+## Phase 1:
 In this phase of project, the test results of proposed VAD checkpoints on DS-Fa-v01 test data is shown. please note that the results of the execuation time are on CPU with batch size of 50 and audio with duration of 2, 5 and 10 seconds.
 
 <p align="center"><img width=600 src="./images/Result.png" alt="Result."/></p>
 
-## phase 2:
+## Phase 2:
 In the phase 2 of project, the test results of proposed VAD checkpoints in this phase on DS-Fa-v03 test data is shown. please note that the results of the execuation time are on CPU with batch size of 50 and audio with duration of 2, 5 and 10 seconds.
 
 <p align="center"><img width=700 src="./images/Result_2.png" alt="Result_2."/></p>
