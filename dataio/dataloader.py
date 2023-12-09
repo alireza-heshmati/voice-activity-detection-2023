@@ -9,7 +9,7 @@ from dataio.utils import read_audio_label, collate_fn
 
 
 class CustomAudioDataset(Dataset):
-    """Tis class read data and a label.
+    """This class reads data and a label.
 
     Arguments
     ---------
@@ -18,7 +18,7 @@ class CustomAudioDataset(Dataset):
     label_path : str
         Path of label file for example os.path.join(data_base_path,"VadLabel").
     data_base_path : str
-        Path of dataset file for example dataio/dataset.
+        Path of dataset file (./dataset).
     post_proc : bool
         Change the labels of short non-speech between two speech, for example 200 ms gap between two speech.
     target_rate : int
@@ -26,13 +26,13 @@ class CustomAudioDataset(Dataset):
 
     Returns
     -------
-    data: float (torch.float)
-        Readed audio output as torch
+    data: float (Tensor)
+        Readed audio output
 
-    label: float (torch.float)
+    label: float (Tensor)
         The time label relative to data.
 
-    framed_label: float (torch.float)
+    framed_label: float (Tensor)
         The 20ms framed label relative to data
 
     """
@@ -74,7 +74,7 @@ def data_loader(train_path,
                 pin_memory, 
                 post_proc = False):
     
-    """Tis class prepare dataset for train, validation, test.
+    """This class prepare dataset for train, validation, test.
 
     Arguments
     ---------
@@ -91,7 +91,7 @@ def data_loader(train_path,
     target_rate : int
         Sampling rate of audio.
     batch_size : int
-        Size of batch size for training and evaluating.
+        Size of batch for training and evaluating.
     num_workers : int
         Number of cpu used.
     pin_memory : bool

@@ -30,13 +30,13 @@ def read_audio_label(speech_path,
 
     Returns
     -------
-    raw_audio : float (torch.float)
+    raw_audio : float (Tensor)
         readed audio
 
-    time_label : float (torch.float)
+    time_label : float (Tensor)
         readed label
 
-    label : float (torch.float)
+    label : float (Tensor)
         readed 20ms framed label
 
     """
@@ -81,13 +81,13 @@ def collate_fn(batch):
 
     Returns
     -------
-    tensors : float (torch.float)
+    tensors : float (Tensor)
         padded audios
 
-    targets : float (torch.float)
+    targets : float (Tensor)
         padded labels
 
-    frmd_targets: float (torch.float)
+    frmd_targets: float (Tensor)
         padded framed label
 
     """
