@@ -1,13 +1,11 @@
 # Dataset 
+**Note1: For train, test, and evaluation of the models, you should put unzipped data in [**Noisy_Dataset_V1**](./Noisy_Dataset_V1) and  [**Noisy_Dataset_V2**](./Noisy_Dataset_V2).**
 
+**Note2: For running the codes, it is necessary to unzip test_filenames.zip, valid_filenames.zip, train_filenames_v2.zip, and VadLabel.zip files in this [**folder**](../dataset)**
 
-**Note1: For train, test, and evaluation of model, you should put unzipped data in [**Noisy_Dataset_V1**](./dataset/Noisy_Dataset_V1) and  [**Noisy_Dataset_V2**](./dataset/Noisy_Dataset_V2).**
+**Note3: For each specific dataset, it is necessary to create train_filenames_v2.csv, test_filenames.csv, and valid_filenames.csv based on the path of your dataset in this [**folder**](../dataset).**
 
-**Note2: For running the codes, it is necessary to unzip test_filenames.zip, valid_filenames.zip, train_filenames_v2.zip, and VadLabel.zip files in this [**folder**](./dataset)**
-
-**Note3: For each specific dataset, it is necessary to create train_filenames_v2.csv, test_filenames.csv, and valid_filenames.csv based on the path of your dataset in this [**folder**](./dataset).**
-
-This [**folder**](./dataset) contains the project dataset for Voice Activity Detection.
+This [**folder**](../dataset) contains the project dataset for Voice Activity Detection.
 <div align="justify"> In this project, around 4.6 millions mp3 files of data have been collected from noiseless Persian language and noise dataset. To create the noisy data, QUT dataset and the noisy data delivered from the employer were used as the pure noise dataset. The QUT dataset contains 5 different types of noise (home, cafe, street, etc.). 
 To create VAD dataset, at first, a part of the Common Voice dataset was separated as bellow:
  

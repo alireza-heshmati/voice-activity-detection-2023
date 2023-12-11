@@ -1,8 +1,6 @@
 
-
 import os
 
-import torch
 from torch.utils.data import Dataset, DataLoader
 
 from dataio.utils import read_audio_label, collate_fn
@@ -50,9 +48,12 @@ class CustomAudioDataset(Dataset):
         self.target_rate = target_rate
         
     def __len__(self):
+        """This measures the number of total dataset."""
         return len(self.speech_filenames)
 
     def __getitem__(self, idx):
+        """This method read each data, label and framed label according to super class Dataset. """
+        
         speech_filename = os.path.join(self.data_base_path, self.speech_filenames[idx])
         
         label_filename = os.path.basename(speech_filename)[:-4].split("SPLIT")[0] + ".txt"
@@ -62,7 +63,7 @@ class CustomAudioDataset(Dataset):
         return data, label, framed_label
         
 
-# for reading and preparing dataset
+
 def data_loader(train_path,
                 validation_path,
                 test_path,

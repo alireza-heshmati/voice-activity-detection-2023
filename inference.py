@@ -50,6 +50,9 @@ model_configs = load_model_config(model_config_path)
 if model_configs["model"]["name"] == "Pyannote":
     model = PyanNet(model_configs["model"])
 
+else :
+    raise ValueError("the name of the VAD model is not supported!!")
+
 
 target_rate = model_configs["data"]["target_rate"]
 

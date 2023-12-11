@@ -3,18 +3,19 @@
 ## Voice Activity Detection Project
 
 ## Table of Contents
-- [Dataset](#Dataset)
-- [Pyannote-v2](#Pyannote-v2)
-- [Pyannote-v4](#Pyannote-v4)
+- [Dataset](#dataset)
+- [Pyannote-v2](#pyannote-v2)
+- [Pyannote-v4](#pyannote-v4)
 - [Other versions of Pyannote](#other-versions-of-pyannote)
-- [Quick-Installation-Usage](#Quick-Installation-Usage)
-- [Results](#Results) 
+- [Requirements](#requirements)
+- [Usage](#usage)
+- [Results](#results)
+- [Contribution](#contribution)
+- [License](#license) 
 
 
-# Dataset 
-
-
-**Note1: For train, test, and evaluation of model, you should put unzipped data in [**Noisy_Dataset_V1**](./dataset/Noisy_Dataset_V1) and  [**Noisy_Dataset_V2**](./dataset/Noisy_Dataset_V2).**
+## Dataset 
+**Note1: For train, test, and evaluation of the models, you should put unzipped data in [**Noisy_Dataset_V1**](./dataset/Noisy_Dataset_V1) and  [**Noisy_Dataset_V2**](./dataset/Noisy_Dataset_V2).**
 
 **Note2: For running the codes, it is necessary to unzip test_filenames.zip, valid_filenames.zip, train_filenames_v2.zip, and VadLabel.zip files in this [**folder**](./dataset)**
 
@@ -88,28 +89,30 @@ CommonVoice is an open source project started by Mozilla to collect speech data,
 }
 ```
 
-# Pyannote-v2
+## Pyannote-v2
 
 In this version, compared to the original model, uses two bidirectional GRU layers with 64 hidden units in its recurrent layer in order to simultaneously use the depth in its structure and reduce the number of parameters. The number of parameters of this model is about 199 thousand.
 
 <p align="center"><img width=600 src="./images/Pyannote-v2.JPG" alt="Pyannote-v2."/></p>
 
 
-# Pyannote-v4
+## Pyannote-v4
 
 In this version, compared to the original model, the process of reducing the complexity continued by maintaining the depth in the recurrent layers, and the number of hidden units in the bidirectional GRU was considered equal to 16.
 
 <p align="center"><img width=600 src="./images/Pyannote-v4.JPG" alt="Pyannote-v4."/></p>
 
-# Other versions of Pyannote
+## Other versions of Pyannote
 
 For other versions, we just changed the stride of filter bank block of the base model. For example, Pyannote-v2.2 has the base model of  Pyannote-v2 with a triple stride of the base model, and for Pyannote-v4.1, the base model is Pyannote-v4 with a double stride. The number of parameters of models is equal to the base model one.
 
-# Quick-Installation-Usage
-## Install
+## Requirements
+- python (version 3.9.16).
+- torch (version 2.0.1).
+- torchaudio (version 2.0.2).
+- other dependencies.
 
-Once you have created your Python environment (Python 3.7+) you can simply type:
-
+**Run the following code to install all the requirements and dependencies.**
 ```
 pip install -r requirements.txt
 ```
@@ -125,8 +128,8 @@ python train.py -cfg [path to .json configuration file]
 #### For example: ####
 
 ```bash                  
-python train.py -cfg recipes/pyannote_v2.json
-                -o checkpoints/Pyannote-v2.pth
+python train.py -cfg "./recipes/pyannote_v2.json"
+                -o "./checkpoints/Pyannote-v2.pth"
 ```
 	
 #### 2. Run the following code with the desired settings to evaluate the model: ####
@@ -138,8 +141,8 @@ python evaluate.py -cfg [path to .json configuration file]
 #### For example: ####
 
 ```bash
-python evaluate.py -cfg recipes/pyannote_v2.json
-                   -i checkpoints/Pyannote-v2.pth
+python evaluate.py -cfg "./recipes/pyannote_v2.json"
+                   -i "./checkpoints/Pyannote-v2.pth"
 ```
 
 #### 3. Run the following code with the desired settings to inference the model: ####
@@ -152,9 +155,9 @@ python inference.py -cfg [path to .json configuration file]
 #### For example: ####
 
 ```bash
-python inference.py -cfg recipes/pyannote_v2.json
-                    -i checkpoints/Pyannote-v2.pth
-                    -w demo/sample.wav
+python inference.py -cfg "./recipes/pyannote_v2.json"
+                    -i "./checkpoints/Pyannote-v2.pth"
+                    -w "./demo/sample.wav"
 ```
 
 #### 4. Run the following code with the desired settings to export the model to onnx: ####
@@ -167,9 +170,9 @@ python export_onnx.py -cfg [path to .json configuration file]
 #### For example: ####
 
 ```bash
-python export_onnx.py -cfg recipes/pyannote_v2.json
-                      -i checkpoints/Pyannote-v2.pth 
-                      -o checkpoints/Pyannote-v2.onnx
+python export_onnx.py -cfg "./recipes/pyannote_v2.json"
+                      -i "./checkpoints/Pyannote-v2.pth" 
+                      -o "./checkpoints/Pyannote-v2.onnx"
 ```
 
 #### 5. Run the following code with the desired settings to inference the onnx model: ####
@@ -181,19 +184,27 @@ python inference_onnx.py -i [path to saved .onnx file]
 #### For example: ####
 
 ```bash
-python inference_onnx.py -i checkpoints/Pyannote-v2.onnx
-                         -w demo/sample.wav
+python inference_onnx.py -i "./checkpoints/Pyannote-v2.onnx"
+                         -w "./demo/sample.wav"
 ```
 
-# Results
-## Phase 1:
-In this phase of project, the test results of proposed VAD checkpoints on DS-Fa-v01 test data is shown. please note that the results of the execuation time are on CPU with batch size of 50 and audio with duration of 2, 5 and 10 seconds.
+## Results
+### Phase 1:
+In this phase of project, the test results of proposed VAD checkpoints on DS-Fa-v01 test data is shown. Please note that the results of the execuation time are on CPU with batch size of 50 and audio with duration of 2, 5 and 10 seconds.
 
 <p align="center"><img width=600 src="./images/Result.png" alt="Result."/></p>
 
-## Phase 2:
+### Phase 2:
 In the phase 2 of project, the test results of proposed VAD checkpoints in this phase on DS-Fa-v03 test data is shown. please note that the results of the execuation time are on CPU with batch size of 50 and audio with duration of 2, 5 and 10 seconds.
 
 <p align="center"><img width=700 src="./images/Result_2.png" alt="Result_2."/></p>
 
+## Contribution
+We welcome contributions from the community! If you would like to contribute to Pyannote, please follow these steps:
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Commit your changes and push your branch to your fork.
+4. Submit a pull request with a detailed description of your changes.
 
+## License
+Ⓒ 2023 X. All rights reserved. 

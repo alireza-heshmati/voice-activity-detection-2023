@@ -7,7 +7,7 @@ from tqdm import tqdm
 import torch
 from models.utils import wav_label_to_frame_label_pyannote
 
-def F1_Score(TP, FP, TN, FN):
+def F1_Score(TP, FP, FN):
     """calcuale F1-Score criteria
 
     Arguments
@@ -17,9 +17,6 @@ def F1_Score(TP, FP, TN, FN):
         
     FP : int
         False positive for calculating F1-Score criteria
-
-    TN : int
-        True negative for calculating F1-Score criteria
 
     FN : int
         False positive for calculating F1-Score criteria
@@ -32,7 +29,8 @@ def F1_Score(TP, FP, TN, FN):
     """
     Precision = TP / (TP + FP)
     Recall = TP / (TP + FN)
-    return 2 * Precision * Recall / (Precision + Recall + 1e-10)
+    output = 2 * Precision * Recall / (Precision + Recall + 1e-10)
+    return output
 
 # calcuale MCC criteria
 def MCC(TP, FP, TN, FN):
@@ -57,7 +55,8 @@ def MCC(TP, FP, TN, FN):
     output : float
         MCC
     """
-    return (TP * TN - FP * FN) / math.sqrt((TP + FP) * (TP + FN) * (TN + FP) * (TN + FN) + 1e-10)
+    output = (TP * TN - FP * FN) / math.sqrt((TP + FP) * (TP + FN) * (TN + FP) * (TN + FN) + 1e-10)
+    return output 
 
 
 
@@ -135,7 +134,7 @@ def evaluate_epoch(model, data_loader, loss_fn, target_fn, frame_pyannote_fn, de
 
             counter += 1
 
-    f1 = F1_Score(TP, FP, TN, FN)
+    f1 = F1_Score(TP, FP, FN)
     mcc = MCC(TP, FP, TN, FN)
     loss = loss.cpu().item() / counter
 
@@ -247,7 +246,7 @@ def run(model,
         step_show,
         n_epoch,
         ):
-    """train each epoch
+    """execuation of training, evaluating and saving best model
 
     Arguments
     ---------

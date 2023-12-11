@@ -76,8 +76,8 @@ def collate_fn(batch):
 
     Arguments
     ---------
-    batch : str
-        Path of the audio
+    batch : tuple, Tensor
+        It includes the output of Dataset class
 
     Returns
     -------

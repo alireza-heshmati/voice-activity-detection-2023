@@ -119,5 +119,5 @@ def pyannote_target_fn(target, model_configs):
     n_conv = len(model_configs["sincnet_filters"]) - 1
     sincnet_stride = model_configs["sincnet_stride"]
     num_frame, len_frame = cal_frame_sample_pyannote(target.shape[-1], sinc_step= sincnet_stride, n_conv=n_conv)
-    target,_ = wav_label_to_frame_label_pyannote(target, num_frame, len_frame)
-    return target
+    output,_ = wav_label_to_frame_label_pyannote(target, num_frame, len_frame)
+    return output

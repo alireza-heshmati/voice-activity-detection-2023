@@ -1,5 +1,3 @@
-torch
-torchaudio
 pandas
 numpy
 tqdm

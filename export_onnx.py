@@ -44,6 +44,9 @@ model_configs = load_model_config(model_config_path)
 
 if model_configs["model"]["name"] == "Pyannote":
     model = PyanNet(model_configs["model"]).to(device)
+else :
+    raise ValueError("the name of the VAD model is not supported!!")
+
 model.load_state_dict(torch.load(saved_model_path),strict=True)
 
 model.eval()

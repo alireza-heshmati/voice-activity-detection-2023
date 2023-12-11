@@ -79,6 +79,18 @@ class PyanNet(nn.Module):
 
 
     def forward(self, x):
+        """This method should implement forwarding operation in the Pyannote model.
+
+        Arguments
+        ---------
+        x : float (Tensor)
+            The input of Pyannote model.
+
+        Returns
+        -------
+        out : float (Tensor)
+            The output of Pyannote model.
+        """
         x = torch.unsqueeze(x, 1)
         x = self.sincnet(x)
         x = x.permute(0,2,1)
@@ -88,5 +100,5 @@ class PyanNet(nn.Module):
         else:
             x = self.sequence_blocks(x)[0]
 
-        x = self.linears(x)
-        return x
+        out = self.linears(x)
+        return out

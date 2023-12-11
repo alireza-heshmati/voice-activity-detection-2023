@@ -12,8 +12,6 @@ from torchaudio.transforms import Resample
 import onnxruntime as ort
 
 
-
-
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-w", "--wav_path",

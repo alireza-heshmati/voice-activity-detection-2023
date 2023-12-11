@@ -1,8 +1,6 @@
 import numpy as np
 
 
-# post processing for vad labels 
-# remove 200 ms gap
 def remove_short_space(label):
     """Post processing for vad labels to remove the labels of short non-speech between
       two speech, for example 200 ms gap between two speech.

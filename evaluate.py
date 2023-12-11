@@ -55,6 +55,8 @@ model_configs = load_model_config(model_config_path)
 if model_configs["model"]["name"] == "Pyannote":
     model = PyanNet(model_configs["model"])
     target_fn = partial(pyannote_target_fn, model_configs=model_configs["model"])
+else :
+    raise ValueError("the name of the VAD model is not supported!!")
 
 total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
 print(f"\nNumber of model's parameters : {total_params}")

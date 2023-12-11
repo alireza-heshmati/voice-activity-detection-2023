@@ -11,8 +11,10 @@ class SincNet(nn.Module):
 
     Arguments
     ---------
-    n_filters : list
+    n_filters : list, int
         List consist of number of each convolution kernel
+    stride_ : in 
+        Stride of ParamSincFB fliltering.
 
     Returns
     -------
@@ -43,4 +45,17 @@ class SincNet(nn.Module):
         self.sincnet_layer = nn.Sequential(*sincnet_list)
 
     def forward(self, x):
-        return self.sincnet_layer(x)
+        """This method should implement forwarding operation in the SincNet model.
+
+        Arguments
+        ---------
+        x : float (Tensor)
+            The input of SincNet model.
+
+        Returns
+        -------
+        out : float (Tensor)
+            The output of SincNet model.
+        """
+        out = self.sincnet_layer(x)
+        return out
