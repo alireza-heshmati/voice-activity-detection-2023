@@ -56,7 +56,7 @@ if model_configs["model"]["name"] == "Pyannote":
     model = PyanNet(model_configs["model"])
     target_fn = partial(pyannote_target_fn, model_configs=model_configs["model"])
     frame_pyannote_fn = partial(cal_frame_sample_pyannote,
-                                 sinc_step= model_configs["sincnet_stride"], n_conv= model_configs["sincnet_stride"]-1)
+                                 sinc_step= model_configs["sincnet_stride"], n_conv= len(model_configs["sincnet_filters"])-1)
 
 total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
 print(f"\nNumber of model's parameters : {total_params}")
